@@ -1,0 +1,13 @@
+{
+    "name": "Safe VK",
+    "description": "",
+    "version": "0.1",
+    "manifest_version": 2,
+    "content_scripts": [
+        {
+            "matches": ["https://vk.com/im*"],
+            "js": [ "script.js" ],
+            "run_at": "document_end"
+        }
+    ]
+}
