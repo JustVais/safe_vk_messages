@@ -2,8 +2,6 @@ console.clear();
 
 checkingForNewElements = () => {
     new Promise(() => {
-        let oldMesCount = 0;
-        
         setInterval(() => {
             let elements = document.getElementsByClassName("im-mess--text");
 
@@ -34,12 +32,12 @@ const removeClassFromOriginalInput = () => {
 
 const createHiddenInput = () => {
     let newInput = document.createElement("div");
-    
+
     newInput.classList.add("_im_text");
     newInput.innerHTML = "hey";
     newInput.style.display = "none";
     document.getElementsByClassName("_im_text_wrap")[0].appendChild(newInput);
-    
+
     return newInput;
 }
 
@@ -47,21 +45,35 @@ const putTextToHiddenInput = (text) => {
     hiddenInput.innerHTML = text;
 }
 
-const observerСallback = (mutationsList, observer) => {
+const clickOnOtherDialog = () => oldMesCount = 0;
+
+const observerСallback = () => {
     let currentTextInOrigInput = originalInput.innerHTML;
 
     putTextToHiddenInput(currentTextInOrigInput);
 };
 
-const observerConfig = { childList: true, subtree: true, characterData: true};
+const addClickHandlers = () => {
+    const allDialogs = document.getElementsByClassName("nim-dialog");
+
+    for (let i = 0; i < allDialogs.length; i++) 
+        allDialogs[i].addEventListener('click', clickOnOtherDialog);
+}
+
+let oldMesCount = 0;
 
 let hiddenInput = createHiddenInput();
 let originalInput = getOriginalInput();
 
 removeClassFromOriginalInput();
 
+
 const observer = new MutationObserver(observerСallback);
 
+const observerConfig = { childList: true, subtree: true, characterData: true };
+
 observer.observe(originalInput, observerConfig);
+
+addClickHandlers();
 
 checkingForNewElements();
